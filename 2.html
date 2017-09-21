@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+<TITLE>
+        Linking
+</TITLE>
+</HEAD>
+<BODY>
+        <ol>
+            <li><a href="#c1">CHAPTER 1</a></li>
+            <li><a href="#c2">CHAPTER 2</a></li>
+    </ol>
+        <h2 id="c1"><b>CHAPTER 1</b></h2>
+        <p>An operating system is a program that manages a computer’s hardware. It
+also provides a basis for application programs and acts as an intermediary
+between the computer user and the computer hardware. An amazing aspect of
+operating systems is how they vary in accomplishing these tasks. Mainframe
+operating systems are designed primarily to optimize utilization of hardware.
+Personal computer (PC) operating systems support complex games, business
+applications, and everything in between. Operating systems for mobile computers
+provide an environment in which a user can easily interface with the
+computer to execute programs. Thus, some operating systems are designed to
+be convenient, others to be efficient, and others to be some combination of the
+two.
+Before we can explore the details of computer system operation, we need to
+know something about system structure. We thus discuss the basic functions
+of system startup, I/O, and storage early in this chapter. We also describe
+the basic computer architecture that makes it possible to write a functional
+operating system.
+Because an operating system is large and complex, it must be created
+piece by piece. Each of these pieces should be a well-delineated portion of the
+system, with carefully defined inputs, outputs, and functions. In this chapter,
+we provide a general overview of the major components of a contemporary
+computer system as well as the functions provided by the operating system.
+Additionally, we cover several other topics to help set the stage for the
+remainder of this text: data structures used in operating systems, computing
+environments, and open-source operating systems.
+CHAPTER OBJECTIVES
+• To describe the basic organization of computer systems.
+• To provide a grand tour of the major components of operating systems.
+• To give an overview of the many types of computing environments.
+• To explore several open-source operating systems.
+3
+4 Chapter 1 Introduction
+user
+1
+user
+2
+user
+3
+computer hardware
+operating system
+system and application programs
+compiler assembler text editor database
+system
+user
+n …
+…
+Figure 1.1 Abstract view of the components of a computer system.
+1.1 What Operating Systems Do
+We begin our discussion by looking at the operating system’s role in the
+overall computer system. A computer system can be divided roughly into four
+components: the hardware, the operating system, the application programs,
+and the users (Figure 1.1).
+The hardware—the central processing unit (CPU), the memory, and the
+input/output (I/O) devices—provides the basic computing resources for the
+system. The application programs—such as word processors, spreadsheets,
+compilers, and Web browsers—define the ways in which these resources are
+used to solve users’ computing problems. The operating system controls the
+hardware and coordinates its use among the various application programs for
+the various users.
+We can also view a computer system as consisting of hardware, software,
+and data. The operating system provides the means for proper use of these
+resources in the operation of the computer system. An operating system is
+similar to a government. Like a government, it performs no useful function by
+itself. It simply provides an environment within which other programs can do
+useful work.
+To understand more fully the operating system’s role, we next explore
+operating systems from two viewpoints: that of the user and that of the system.
+1.1.1 User View
+The user’s view of the computer varies according to the interface being
+used. Most computer users sit in front of a PC, consisting of a monitor,
+keyboard, mouse, and system unit. Such a system is designed for one user
+1.1 What Operating Systems Do 5
+to monopolize its resources. The goal is to maximize the work (or play) that
+the user is performing. In this case, the operating system is designed mostly
+for ease of use, with some attention paid to performance and none paid
+to resource utilization—how various hardware and software resources are
+shared. Performance is, of course, important to the user; but such systems
+are optimized for the single-user experience rather than the requirements of
+multiple users.
+In other cases, a user sits at a terminal connected to a mainframe or a
+minicomputer. Other users are accessing the same computer through other
+terminals. These users share resources and may exchange information. The
+operating system in such cases is designed to maximize resource utilization—
+to assure that all available CPU time, memory, and I/O are used efficiently and
+that no individual user takes more than her fair share.
+In still other cases, users sit at workstations connected to networks of
+other workstations and servers. These users have dedicated resources at
+their disposal, but they also share resources such as networking and servers,
+including file, compute, and print servers. Therefore, their operating system is
+designed to compromise between individual usability and resource utilization.
+Recently, many varieties of mobile computers, such as smartphones and
+tablets, have come into fashion. Most mobile computers are standalone units for
+individual users. Quite often, they are connected to networks through cellular
+or other wireless technologies. Increasingly, thesemobile devices are replacing
+desktop and laptop computers for people who are primarily interested in
+using computers for e-mail and web browsing. The user interface for mobile
+computers generally features a touch screen, where the user interactswith the
+system by pressing and swiping fingers across the screen rather than using a
+physical keyboard and mouse.
+Some computers have little or no user view. For example, embedded
+computers in home devices and automobiles may have numeric keypads and
+may turn indicator lights on or off to show status, but they and their operating
+systems are designed primarily to run without user intervention.
+1.1.2 System View
+From the computer’s point of view, the operating system is the program
+most intimately involved with the hardware. In this context, we can view
+an operating system as a resource allocator. A computer system has many
+resources that may be required to solve a problem: CPU time, memory space,
+file-storage space, I/O devices, and so on. The operating system acts as the
+manager of these resources. Facing numerous and possibly conflicting requests
+for resources, the operating system must decidehow to allocate them to specific
+programs and users so that it can operate the computer system efficiently and
+fairly.Aswe have seen, resource allocation is especially important where many
+users access the same mainframe or minicomputer.
+A slightly different view of an operating system emphasizes the need to
+control the various I/O devices and user programs. An operating system is a
+control program. A control program manages the execution of user programs
+to prevent errors and improper use of the computer. It is especially concerned
+with the operation and control of I/O devices.
+6 Chapter 1 Introduction
+1.1.3 Defining Operating Systems
+By now, you can probably see that the term operating system covers many roles
+and functions. That is the case, at least in part, because of the myriad designs
+and uses of computers. Computers are present within toasters, cars, ships,
+spacecraft, homes, and businesses. They are the basis for game machines, music
+players, cable TV tuners, and industrial control systems. Although computers
+have a relatively short history, they have evolved rapidly. Computing started
+as an experiment to determine what could be done and quickly moved to
+fixed-purpose systems for military uses, such as code breaking and trajectory
+plotting, and governmental uses, such as census calculation. Those early
+computers evolved into general-purpose, multifunction mainframes, and
+that’s when operating systems were born. In the 1960s, Moore’s Law predicted
+that the number of transistors on an integrated circuit would double every
+eighteen months, and that prediction has held true. Computers gained in
+functionality and shrunk in size, leading to a vast number of uses and a vast
+number and variety of operating systems. (See Chapter 20 for more details on
+the history of operating systems.)
+How, then, can we define what an operating system is? In general, we have
+no completely adequate definition of an operating system. Operating systems
+exist because they offer a reasonable way to solve the problem of creating a
+usable computing system. The fundamental goal of computer systems is to
+execute user programs and to make solving user problems easier. Computer
+hardware is constructed toward this goal. Since bare hardware alone is not
+particularly easy to use, application programs are developed. These programs
+require certain common operations, such as those controlling the I/O devices.
+The common functions of controlling and allocating resources are then brought
+together into one piece of software: the operating system.
+In addition,wehave no universally accepted definition of what is part of the
+operating system. A simple viewpoint is that it includes everything a vendor
+ships when you order “the operating system.” The features included, however,
+vary greatly across systems. Some systems take up less than a megabyte of
+space and lack even a full-screen editor, whereas others require gigabytes of
+space and are based entirely on graphical windowing systems.Amore common
+definition, and the one that we usually follow, is that the operating system
+is the one program running at all times on the computer—usually called
+the kernel. (Along with the kernel, there are two other types of programs:
+system programs, which are associatedwith the operating systembut are not
+necessarily part of the kernel, and application programs, which include all
+programs not associated with the operation of the system.)
+The matter of what constitutes an operating system became increasingly
+important as personal computers became more widespread and operating
+systems grew increasingly sophisticated. In 1998, the United States Department
+of Justice filed suit against Microsoft, in essence claiming that Microsoft
+included too much functionality in its operating systems and thus prevented
+application vendors from competing. (For example, a Web browser was an
+integral part of the operating systems.) As a result, Microsoft was found guilty
+of using its operating-system monopoly to limit competition.
+Today, however, if we look at operating systems for mobile devices, we
+see that once again the number of features constituting the operating system
+1.2 Computer-System Organization 7
+is increasing. Mobile operating systems often include not only a core kernel
+but also middleware—a set of software frameworks that provide additional
+services to application developers. For example, each of the two most prominent
+mobile operating systems—Apple’s iOS and Google’s Android—features
+a core kernel alongwithmiddleware that supportsdatabases,multimedia, and
+graphics (to name a only few).
+1.2 Computer-System Organization
+Before we can explore the details of how computer systems operate, we need
+general knowledge of the structure of a computer system. In this section,
+we look at several parts of this structure. The section is mostly concerned
+with computer-system organization, so you can skim or skip it if you already
+understand the concepts.
+1.2.1 Computer-System Operation
+A modern general-purpose computer system consists of one or more CPUs
+and a number of device controllers connected through a common bus that
+provides access to shared memory (Figure 1.2). Each device controller is in
+charge of a specific type of device (for example, disk drives, audio devices,
+or video displays). The CPU and the device controllers can execute in parallel,
+competing for memory cycles. To ensure orderly access to the shared memory,
+a memory controller synchronizes access to thememory.
+For a computer to start running—for instance, when it is powered up or
+rebooted—it needs to have an initial program to run. This initial program,
+or bootstrap program, tends to be simple. Typically, it is stored within
+the computer hardware in read-only memory (ROM) or electrically erasable
+programmable read-only memory (EEPROM), known by the general term
+firmware. It initializes all aspects of the system, from CPU registers to device
+controllers tomemorycontents. The bootstrap program mustknowhowto load
+the operating system and how to start executing that system. To accomplish
+USB controller
+mouse keyboard printer monitor
+disks
+graphics
+adapter
+disk
+controller
+memory
+CPU
+on-line
+Figure 1.2 A modern computer system.
+8 Chapter 1 Introduction
+user
+process
+executing
+CPU
+I/O interrupt
+processing
+I/O
+request
+transfer
+done
+I/O
+request
+transfer
+done
+I/O
+device
+idle
+transferring
+Figure 1.3 Interrupt timeline for a single process doing output.
+this goal, the bootstrap program must locate the operating-system kernel and
+load it into memory.
+Once the kernel is loaded and executing, it can start providing services to
+the system and its users. Some services are provided outside of the kernel, by
+system programs that are loaded into memory at boot time to become system
+processes, or system daemons that run the entire time the kernel is running.
+On UNIX, the first systemprocess is “init,” and it starts many other daemons.
+Once this phase is complete, the system is fully booted, and the system waits
+for some event to occur.
+The occurrence of an event is usually signaled by an interrupt from either
+the hardware or the software. Hardware may trigger an interrupt at any time
+by sending a signal to the CPU, usually by way of the system bus. Software
+may trigger an interrupt by executing a special operation called a system call
+(also called a monitor call).
+When the CPU is interrupted, it stops what it is doing and immediately
+transfers execution to a fixed location. The fixed location usually contains
+the starting address where the service routine for the interrupt is located.
+The interrupt service routine executes; on completion, the CPU resumes the
+interrupted computation. A timeline of this operation is shown in Figure 1.3.
+Interrupts are an important part of a computer architecture. Each computer
+design has its own interrupt mechanism, but several functions are common.
+The interrupt must transfer control to the appropriate interrupt service routine.
+The straightforward method for handling this transfer</p>
+    
+    <H2 ID="c2"><B>chapter 2</B></H2>
+    <p>In Chapter 6, we showed how the CPU can be shared by a set of processes. As
+a result of CPU scheduling, we can improve both the utilization of the CPU and
+the speed of the computer’s response to its users. To realize this increase in
+performance, however, we must keep several processes in memory—that is,
+we must share memory.
+In this chapter, we discuss various ways to manage memory. The memorymanagement
+algorithms vary from a primitive bare-machine approach to
+paging and segmentation strategies. Each approach has its own advantages
+and disadvantages. Selection of a memory-management method for a specific
+system depends on many factors, especially on the hardware design of the
+system. As we shall see, many algorithms require hardware support, leading
+many systems to have closely integrated hardware and operating-system
+memory management.
+CHAPTER OBJECTIVES
+• To provide a detailed description of various ways of organizing memory
+hardware.
+• To explore various techniques of allocating memory to processes.
+• To discuss in detail how paging works in contemporary computer systems.
+8.1 Background
+As we saw in Chapter 1, memory is central to the operation of a modern
+computer system. Memory consists of a large array of bytes, each with its own
+address. The CPU fetches instructions from memory according to the value of
+the program counter. These instructions may cause additional loading from
+and storing to specific memory addresses.
+A typical instruction-execution cycle, for example, first fetches an instruction
+from memory. The instruction is then decoded and may cause operands
+to be fetched from memory. After the instruction has been executed on the
+operands, results may be stored back in memory. The memory unit sees only
+351
+352 Chapter 8 Main Memory
+a streamof memory addresses; it does not know how they are generated (by
+the instruction counter, indexing, indirection, literal addresses, and so on) or
+what they are for (instructions or data). Accordingly, we can ignore how a
+program generates a memory address. We are interested only in the sequence
+of memory addresses generated by the running program.
+We begin our discussion by covering several issues that are pertinent
+to managing memory: basic hardware, the binding of symbolic memory
+addresses to actual physical addresses, and the distinction between logical
+and physical addresses.We conclude the section with a discussion of dynamic
+linking and shared libraries.
+8.1.1 Basic Hardware
+Main memory and the registers built into the processor itself are the only
+general-purpose storage that the CPU can access directly. There are machine
+instructions that take memory addresses as arguments, but none that take disk
+addresses. Therefore, any instructions in execution, and any data being used
+by the instructions, must be in one of these direct-access storage devices. If the
+data are not in memory, they must be moved there before the CPU can operate
+on them.
+Registers that are built into the CPU are generally accessible within one
+cycle of the CPU clock. Most CPUs can decode instructions and performsimple
+operations on register contents at the rate of one or more operations per
+clock tick. The same cannot be said of main memory, which is accessed via
+a transaction on the memory bus. Completing a memory access may take
+many cycles of the CPU clock. In such cases, the processor normally needs to
+stall, since it does not have the data requiredto complete the instruction that it
+is executing. This situation is intolerable because of the frequency of memory
+accesses. The remedy is to add fastmemorybetween the CPUand mainmemory,
+typically on the CPU chip for fast access. Such a cache was described in Section
+1.8.3. To manage a cache built into the CPU, the hardware automatically speeds
+up memory access without any operating-system control.
+Not only are we concerned with the relative speed of accessing physical
+memory, but we also must ensure correct operation. For proper system
+operation we must protect the operating system from access by user processes.
+On multiuser systems, we must additionally protect user processes from
+one another. This protection must be provided by the hardware because the
+operating system doesn’t usually intervene between the CPU and its memory
+accesses (because of the resulting performance penalty). Hardware implements
+this production in several different ways, as we show throughout the chapter.
+Here, we outline one possible implementation.
+We first need to make sure that each process has a separate memory space.
+Separate per-process memory space protects the processes from each other and
+is fundamental to having multiple processes loaded in memory for concurrent
+execution. To separate memory spaces, we need the ability to determine the
+range of legal addresses that the process may access and to ensure that the
+process can access only these legal addresses. We can provide this protection
+by using two registers, usually a base and a limit, as illustrated in Figure 8.1.
+The base register holds the smallest legal physical memory address; the limit
+register specifies the size of the range. For example, if the base register holds
+8.1 Background 353
+operating
+system
+0
+256000
+300040 300040
+base
+120900
+limit
+420940
+880000
+1024000
+process
+process
+process
+Figure 8.1 A base and a limit register define a logical address space.
+300040 and the limit register is 120900, then the program can legally access all
+addresses from 300040 through 420939 (inclusive).
+Protection of memory space is accomplished by having the CPU hardware
+compare every address generated in user mode with the registers. Any attempt
+by a program executing in user mode to access operating-system memory or
+other users’ memory results in a trap to the operating system, which treats the
+attempt as a fatal error (Figure 8.2). This scheme prevents a user program from
+(accidentally or deliberately) modifying the code or data structures of either
+the operating system or other users.
+The base and limit registers can be loaded only by the operating system,
+which uses a special privileged instruction. Since privileged instructions can
+be executed only in kernel mode, and since only the operati</p>
+    
